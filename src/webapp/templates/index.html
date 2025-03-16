@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Code Debugger</title>
+    <style>
+        /* General Styling */
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: #121212;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh; /* Ensures full-page centering */
+            color: #E0E0E0;
+        }
+
+        .container {
+            background: #1E1E1E;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            border-radius: 12px;
+            width: 1000px;
+            text-align: center;
+            transition: all 0.3s ease-in-out;
+            border: 1px solid #333;
+            position: relative; /* Keeps layout stable */
+            max-width: 1000px; /* Prevents it from getting too wide */
+        }
+
+        .container:hover {
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .header {
+            font-size: 28px;
+            font-weight: 600;
+            color: #BB86FC;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .header::before {
+            content: "🔧";
+            margin-right: 10px;
+        }
+
+        p {
+            font-size: 14px;
+            color: #B0B0B0;
+        }
+
+        textarea {
+            width: 95%;
+            height: 180px;
+            font-size: 14px;
+            padding: 12px;
+            border: 2px solid #333;
+            border-radius: 10px;
+            resize: vertical;
+            background-color: #2C2C2C;
+            color: #E0E0E0;
+            transition: all 0.3s ease;
+            outline: none;
+            box-shadow: inset 0 1px 3px rgba(255, 255, 255, 0.1);
+            display: block;
+            margin: 10px auto;
+        }
+
+        textarea:focus {
+            border-color: #BB86FC;
+            box-shadow: 0 0 8px rgba(187, 134, 252, 0.5);
+        }
+
+        button {
+            background: #BB86FC;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            font-size: 16px;
+            border-radius: 8px;
+            cursor: pointer;
+            margin-top: 20px;
+            transition: all 0.3s ease-in-out;
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        button:hover {
+            background: #9B67E0;
+            transform: scale(1.05);
+        }
+
+        .output-container {
+            margin-top: 25px;
+            text-align: left;
+            background: #242424;
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            animation: fadeIn 0.6s ease-in-out;
+            border-left: 4px solid #BB86FC;
+            max-height: none; /* Ensure it expands properly */
+            overflow: visible; /* Ensure full text is readable */
+            word-wrap: break-word;
+        }
+
+        
+
+
+        .output-header {
+            font-weight: bold;
+            font-size: 18px;
+            color: #BB86FC;
+            display: flex;
+            align-items: center;
+            margin-bottom: 12px;
+        }
+
+        .output-header::before {
+            content: "📝";
+            margin-right: 8px;
+        }
+
+        pre {
+            background: #181818;
+            color: #E0E0E0;
+            padding: 15px;
+            border-radius: 10px;
+            font-size: 14px;
+            overflow-x: auto;
+            overflow-y: auto; /* Add vertical scrolling if needed */
+            white-space: pre-wrap;
+            line-height: 1.6;
+            border-left: 5px solid #BB86FC;
+            max-height: 500px; /* Allow full text display */
+            word-break: break-word;
+        }
+
+        .code-container {
+            margin-top: 20px;
+            background: #181818;
+            color: #ffffff;
+            padding: 15px;
+            border-radius: 10px;
+            font-size: 14px;
+            overflow-x: auto;
+            white-space: pre-wrap;
+            line-height: 1.6;
+            border-left: 5px solid #03DAC6;
+        }
+
+        .footer {
+            margin-top: 20px;
+            font-size: 12px;
+            color: #999;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">AI-Powered Code Debugger</div>
+        <p><strong>Paste your Python code:</strong></p>
+        <form method="POST">
+            <textarea name="code" required>{{ user_code }}</textarea>
+            <button type="submit">🔍 Debug Code</button>
+        </form>
+
+        {% if debug_result %}
+        <div class="output-container">
+            <div class="output-header">Detected Issues:</div>
+            <pre>{{ debug_result }}</pre>
+        </div>
+        {% endif %}
+
+        {% if fixed_code_result %}
+        <div class="output-container">
+            <div class="output-header">Fixed Code:</div>
+            <pre class="code-container">{{ fixed_code_result }}</pre>
+        </div>
+        {% endif %}
+
+        <div class="footer">Powered by GPT-4o | Created by Simran </div>
+    </div>
+</body>
+</html>
